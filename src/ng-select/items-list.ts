@@ -95,7 +95,11 @@ export class ItemsList {
 
     filter(term: string) {
         const filterFuncVal = this._getDefaultFilterFunc(term);
-        this._filteredItems = term ? this._items.filter(val => filterFuncVal(val)) : this._items;
+        if(this._ngSelect.removeSelected){
+            this._filteredItems = this._items.filter(val => !val.selected);
+        }
+        else{ this._filteredItems = this._items;}
+        this._filteredItems = term ? this._filteredItems.filter(val => filterFuncVal(val)) : this._filteredItems;
     }
 
     clearFilter() {
